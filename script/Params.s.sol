@@ -29,6 +29,9 @@ abstract contract Params {
   /// @notice Juani(Balancer Labs) EOA. Pausing and unpausing the BCoWFactory contract is controlled by this address.
   /// chainId == 11_155_111
   address internal constant _SEPOLIA_JUANI_EOA = 0x9098b50ee2d9E4c3C69928A691DA3b192b4C9673;
+  /// @notice Balancer DAO multisig address on Gnosis Chain. Pausing and unpausing the BCoWFactory contract is controlled by this address.
+  /// chainId == 8453
+  address internal constant _B_DAO_MSIG_BASE = 0xC40DCFB13651e64C8551007aa57F9260827B6462;
 
   /**
    * @notice AppData identifier
@@ -68,6 +71,11 @@ abstract contract Params {
       _bFactoryDeploymentParams = BFactoryDeploymentParams({bDao: _B_DAO});
       _bCoWFactoryDeploymentParams =
         BCoWFactoryDeploymentParams({settlement: _GPV2_SETTLEMENT, appData: _APP_DATA, bDaoMsig: _B_DAO_MSIG_MAINNET});
+    } else if (chainId == 8453) {
+      // Base
+      _bFactoryDeploymentParams = BFactoryDeploymentParams({bDao: _B_DAO});
+      _bCoWFactoryDeploymentParams =
+        BCoWFactoryDeploymentParams({settlement: _GPV2_SETTLEMENT, appData: _APP_DATA, bDaoMsig: _B_DAO_MSIG_BASE});
     } else {
       revert('Params: unknown chain ID');
     }
